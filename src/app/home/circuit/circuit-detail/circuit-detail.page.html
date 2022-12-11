@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Leaderboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="navController.back();">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-header style="font-weight: bold">
+        Merk
+      </ion-header>
+    </ion-col>
+    <ion-col>
+      <ion-header style="font-weight: bold">
+        Model
+      </ion-header>
+    </ion-col>
+    <ion-col>
+      <ion-header style="font-weight: bold">
+        Lap time
+      </ion-header>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>BMW</ion-col>
+    <ion-col>M3</ion-col>
+    <ion-col>01.30.500</ion-col>
+  </ion-row>
+</ion-content>

@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Circuits</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="navController.back();">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab horizontal='end' *ngIf='fabIsVisible' [vertical]='verticalFabPosition' slot='fixed'>
+    <ion-fab-button>
+      <ion-icon name='add'></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card color="tertiary" routerLink='circuit-detail'>
+        <ion-card-content class='ion-text-center'>Brands Hatch</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card color="tertiary">
+        <ion-card-content class='ion-text-center'>Catalunya</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card color="tertiary">
+        <ion-card-content class='ion-text-center'>Hockenheimring</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card color="tertiary">
+        <ion-card-content class='ion-text-center'>Monza</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card color="tertiary">
+        <ion-card-content class='ion-text-center'>Mugello</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card color="tertiary">
+        <ion-card-content class='ion-text-center'>Road America</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card color="tertiary">
+        <ion-card-content class='ion-text-center'>Watkins Glen</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
