@@ -67,4 +67,11 @@
       </ion-card>
     </ion-col>
   </ion-row>
+  <ion-row *ngFor="let track of (tracks | async)?.naam">
+    <ion-col size="12">
+      <ion-card color="tertiary" routerLink='circuit-detail'>
+        <ion-card-content class='ion-text-center'>{{track.naam}}</ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>
