@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TrackAPI} from '../../types/TrackAPI';
+import {TrackService} from '../../services/track.service';
 
 @Component({
   selector: 'app-track',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrackComponent implements OnInit {
 
-  constructor() { }
+  @Input() track: TrackAPI
+  constructor(public trackService: TrackService) { }
 
   ngOnInit() {}
 

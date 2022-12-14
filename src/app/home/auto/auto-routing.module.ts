@@ -11,7 +11,12 @@ const routes: Routes = [
   {
     path: 'model',
     loadChildren: () => import('./model/model.module').then( m => m.ModelPageModule)
+  },
+  {
+    path: 'autodetail',
+    loadChildren: () => import('./autodetail/autodetail.module').then( m => m.AutodetailPageModule)
   }
+
 ];
 
 @NgModule({
