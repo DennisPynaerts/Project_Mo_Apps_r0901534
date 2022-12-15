@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CircuitPageRoutingModule } from './circuit-routing.module';
+import { NieuwCircuitPageRoutingModule } from './nieuw-circuit-routing.module';
 
-import { CircuitPage } from './circuit.page';
+import { NieuwCircuitPage } from './nieuw-circuit.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CircuitPageRoutingModule,
+    NieuwCircuitPageRoutingModule
   ],
-  declarations: [CircuitPage]
+  declarations: [NieuwCircuitPage]
 })
-export class CircuitPageModule {}
+export class NieuwCircuitPageModule {}

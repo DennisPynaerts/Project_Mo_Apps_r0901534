@@ -14,6 +14,10 @@ const routes: Routes = [
   },  {
     path: 'leaderboard',
     loadChildren: () => import('./leaderboard/leaderboard.module').then( m => m.LeaderboardPageModule)
+  },
+  {
+    path: 'nieuw-circuit',
+    loadChildren: () => import('./nieuw-circuit/nieuw-circuit.module').then( m => m.NieuwCircuitPageModule)
   }
 
 ];

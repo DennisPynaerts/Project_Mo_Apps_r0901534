@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -12,15 +12,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+  <ion-content [fullscreen]="true">
   <ion-fab horizontal='end' *ngIf='fabIsVisible' [vertical]='verticalFabPosition' slot='fixed'>
-    <ion-fab-button>
+    <ion-fab-button [routerLink]="['/home', 'circuit', 'nieuw-circuit']">
       <ion-icon name='add'></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <ion-row *ngFor="let track of (tracks | async)">
     <ion-col size="12">
-      <ion-card color="tertiary" routerLink='circuit-detail'>
+      <ion-card color="tertiary" [routerLink]="['/home', 'circuit', track._id]">
         <ion-card-content class='ion-text-center'>{{track.naam}}</ion-card-content>
       </ion-card>
     </ion-col>

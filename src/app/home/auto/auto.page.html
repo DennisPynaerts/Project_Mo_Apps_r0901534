@@ -14,7 +14,7 @@
 
 <ion-content>
   <ion-fab horizontal='end' *ngIf='fabIsVisible' [vertical]='verticalFabPosition' slot='fixed'>
-    <ion-fab-button>
+    <ion-fab-button [routerLink]="['/home', 'auto', 'nieuwe-auto']">
       <ion-icon name='add'></ion-icon>
     </ion-fab-button>
   </ion-fab>

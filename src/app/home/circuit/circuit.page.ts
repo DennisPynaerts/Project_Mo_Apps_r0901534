@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {TrackService} from '../../services/track.service';
+import {TrackAPI} from '../../types/TrackAPI';
 
 @Component({
   selector: 'app-circuit',
@@ -15,7 +16,6 @@ export class CircuitPage implements OnInit {
   constructor(public navController: NavController, public trackService: TrackService) { }
 
   ngOnInit() {
-    //this.tracks = this.tracks
   }
 
 }
