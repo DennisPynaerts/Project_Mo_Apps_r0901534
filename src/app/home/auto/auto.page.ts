@@ -12,10 +12,11 @@ export class AutoPage implements OnInit {
   fabIsVisible = true;
   autos = this.autoService.getAutos();
 
+
   constructor(public navController: NavController, public autoService: AutoService) { }
 
   ngOnInit() {
-    console.log(this.autos);
+    // console.log(this.autos);
   }
 
 }

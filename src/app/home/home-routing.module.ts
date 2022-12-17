@@ -12,6 +12,14 @@ const routes: Routes = [
     loadChildren: () => import('./auto/auto.module').then( m => m.AutoPageModule)
   },
   {
+    path: 'auto/:id',
+    loadChildren: () => import('./auto/autodetail/autodetail.module').then( m => m.AutodetailPageModule)
+  },
+  {
+    path: 'auto/:id/model-detail',
+    loadChildren: () => import('./auto/model/model-detail/model-detail.module').then( m => m.ModelDetailPageModule)
+  },
+  {
     path: 'circuit',
     loadChildren: () => import('./circuit/circuit.module').then( m => m.CircuitPageModule)
   },

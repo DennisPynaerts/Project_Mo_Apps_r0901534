@@ -7,6 +7,8 @@ import {NavController} from '@ionic/angular';
   styleUrls: ['./model-detail.page.scss'],
 })
 export class ModelDetailPage implements OnInit {
+  verticalFabPosition: ('bottom' | 'top') = 'bottom';
+  fabIsVisible = true;
 
   constructor(public navController: NavController) { }
 

@@ -21,7 +21,7 @@
 
   <ion-row *ngFor="let auto of (autos | async)">
     <ion-col size="12">
-      <ion-card color="tertiary" routerLink='autodetail'>
+      <ion-card color="tertiary" [routerLink]="['/home', 'auto', auto._id]">
         <ion-card-content class='ion-text-center'>{{auto.merkNaam}}</ion-card-content>
       </ion-card>
     </ion-col>

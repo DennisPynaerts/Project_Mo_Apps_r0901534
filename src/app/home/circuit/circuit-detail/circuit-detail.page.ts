@@ -26,6 +26,7 @@ export class CircuitDetailPage implements OnInit {
     this.setData();
     this.track = this.trackService.getTrackById(this.setData());
     console.log(this.track);
+    console.log(this.setData());
     // const subscribe = from([this.tracks]).subscribe(trackObj => this.trackArray.push(trackObj));
     // this.#subscriptions.push(subscribe);
   }
