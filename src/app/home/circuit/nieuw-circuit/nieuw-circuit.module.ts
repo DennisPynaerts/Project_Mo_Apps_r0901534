@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { NieuwCircuitPageRoutingModule } from './nieuw-circuit-routing.module';
 
 import { NieuwCircuitPage } from './nieuw-circuit.page';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NieuwCircuitPageRoutingModule
+    NieuwCircuitPageRoutingModule,
+    HttpClientModule
   ],
   declarations: [NieuwCircuitPage]
 })
