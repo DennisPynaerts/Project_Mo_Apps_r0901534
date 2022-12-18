@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-<!--    <ion-title [title]="track.naam">{{track.naam}}</ion-title>-->
+    <ion-title>{{naam}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="navController.back();">
         <ion-icon name="arrow-back-outline"></ion-icon>
@@ -13,5 +13,50 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <h1>Details:</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-label position="floating"><h2>Circuit naam: {{naam}}</h2></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-label position="floating"><h2>Land: {{land}}</h2></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <h1>Aanpassen:</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-label position="floating">Circuit naam</ion-label>
+        <ion-input type="text" class="ion-margin-top" [(ngModel)]='inputNaam'></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-label position="floating">Circuit naam</ion-label>
+        <ion-input type="text" class="ion-margin-top" [(ngModel)]='inputLand'></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="clickHandler()">
+          <ion-icon slot="icon-only" name="save-outline"></ion-icon>Aanpassen
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="verwijderenHandler()">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>Verwijderen
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

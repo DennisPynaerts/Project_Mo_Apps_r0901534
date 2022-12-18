@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ITrackAPI} from '../types/TrackAPI';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrackService {
   readonly #baseURL = 'https://api-project-mobile-apps.azurewebsites.net/tracks';
-  readonly #findByIdURL = 'https://api-project-mobile-apps.azurewebsites.net/tracks/';
 
   constructor(private http: HttpClient) { }
 
@@ -28,7 +27,7 @@ export class TrackService {
     getTrackById(id: string):Observable<ITrackAPI>{
         return this.http
             .get<ITrackAPI>(
-                this.#baseURL + id,
+                this.#baseURL + '/' + id,
                 {
                     observe: 'body',
                     responseType: 'json'
