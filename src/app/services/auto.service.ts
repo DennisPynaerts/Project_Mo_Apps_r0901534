@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {observable, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {AutoAPI} from '../types/AutoAPI'
-import {TrackAPI} from '../types/TrackAPI';
 import {tap} from 'rxjs/operators';
-import {options} from 'ionicons/icons';
-
+import {ITrackAPI} from '../types/TrackAPI';
 @Injectable({
   providedIn: 'root'
 })
 export class AutoService {
-    readonly #baseURL = 'https://api-project-mobile-apps.azurewebsites.net/autos';
+    readonly #baseURL = 'https://azureapi-production.up.railway.app/autos';
 
     constructor(private http: HttpClient) {
     }
@@ -35,5 +33,16 @@ export class AutoService {
                     observe: 'body',
                     responseType: 'json'
                 })
+    }
+
+    getAutoById(id: string):Observable<AutoAPI>{
+        return this.http
+            .get<AutoAPI>(
+                this.#baseURL + '/' + id,
+                {
+                    observe: 'body',
+                    responseType: 'json'
+                }
+            );
     }
 }

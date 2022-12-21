@@ -42,7 +42,8 @@ export class CircuitDetailPage implements OnInit {
   }
 
   laadTrack() {
-    return new Promise(resolve => setTimeout(resolve, 250));
+    return new Promise(resolve => setTimeout(resolve, 1000));
+    // API is soms wat traag, laat geen data zien zonder extra laadtijd
   }
 
   valideerInput(): boolean {
@@ -61,7 +62,7 @@ export class CircuitDetailPage implements OnInit {
 
   async verwijderenHandler(): Promise<void> {
     await this.http.delete<any>(`https://azureapi-production.up.railway.app/tracks/delete/${this.setData()}`).subscribe();
-    await this.navController.back(); // doet hetzelfde als bovenstaande actie
+    await this.navController.back();
   }
 
   async postData(): Promise<void> {

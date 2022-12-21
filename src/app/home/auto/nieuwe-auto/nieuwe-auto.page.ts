@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
+import {HttpClient} from '@angular/common/http';
+import {AutoAPI} from '../../../types/AutoAPI';
 
 @Component({
   selector: 'app-nieuwe-auto',
@@ -9,12 +11,14 @@ import {NavController} from '@ionic/angular';
 export class NieuweAutoPage implements OnInit {
   merkNaam: string;
   land: string;
+  modellen: [{}] = [{}];
 
-  constructor(public navController: NavController) { }
+  constructor(public navController: NavController, public http: HttpClient) { }
 
   ngOnInit() {
     this.merkNaam = '';
     this.land = '';
+    this.modellen = [{}];
   }
 
   valideerInput(): boolean {
@@ -25,10 +29,15 @@ export class NieuweAutoPage implements OnInit {
 
   clickHandler(): void {
     if (this.valideerInput()) {
-
+      this.postData();
     } else {
       alert('Vul de invoervelden in!');
     }
   }
 
+  async postData(): Promise<void> {
+    await this.http.post<any>('https://azureapi-production.up.railway.app/autos/create',
+
+        { merkNaam: `${this.merkNaam}`, land: `${this.land}`}).subscribe();
+  }
 }
