@@ -23,7 +23,7 @@ export class CircuitDetailPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.setData();
+    this.haalIdsOp();
     await this.haalTrackOp();
     await this.laadTrack(); // extra tijd geven om track binnen te halen, ging te snel
     this.naam = this.track.naam;
@@ -31,12 +31,12 @@ export class CircuitDetailPage implements OnInit {
   }
 
   async haalTrackOp(): Promise<void> {
-    await this.trackService.getTrackById(this.setData()).subscribe(data => {
+    await this.trackService.getTrackById(this.haalIdsOp()).subscribe(data => {
       this.track = data;
     });
   }
 
-  setData(): string {
+  haalIdsOp(): string {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     return id;
     // Haal id op van circuit dat gekozen is op Circuit page en return
@@ -48,7 +48,7 @@ export class CircuitDetailPage implements OnInit {
   }
 
   valideerInput(): boolean {
-    const resultaat = (this.inputNaam !== '' && this.inputLand !== '') ? true : false;
+    const resultaat = (this.inputNaam !== '' && this.inputLand !== '');
     return resultaat;
     // check of de invoervelden ingevuld zijn
   }
@@ -62,12 +62,12 @@ export class CircuitDetailPage implements OnInit {
   }
 
   async verwijderenHandler(): Promise<void> {
-    await this.http.delete<any>(`https://azureapi-production.up.railway.app/tracks/delete/${this.setData()}`).subscribe();
+    await this.http.delete<any>(`https://azureapi-production.up.railway.app/tracks/delete/${this.haalIdsOp()}`).subscribe();
     await this.navController.back();
   }
 
   async postData(): Promise<void> {
-    await this.http.put<any>(`https://azureapi-production.up.railway.app/tracks/update/${this.setData()}`,
+    await this.http.put<any>(`https://azureapi-production.up.railway.app/tracks/update/${this.haalIdsOp()}`,
         { naam: `${this.inputNaam}`, land: `${this.inputLand}`}).subscribe();
   }
 

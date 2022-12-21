@@ -20,10 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./auto/model/model-detail/model-detail.module').then( m => m.ModelDetailPageModule)
   },
   {
-    path: 'auto/model/nieuw-model',
-    loadChildren: () => import('./auto/model/nieuw-model/nieuw-model.page').then( m => m.NieuwModelPage)
-  },
-  {
     path: 'circuit',
     loadChildren: () => import('./circuit/circuit.module').then( m => m.CircuitPageModule)
   },
