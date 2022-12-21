@@ -13,12 +13,20 @@ export class ModelDetailPage implements OnInit {
   verticalFabPosition: ('bottom' | 'top') = 'bottom';
   fabIsVisible = true;
   model: IModelAPI;
+  alleModellen: IModelAPI[] = [];
   modelNaam: string;
   PI: number;
   prijs: number;
   handling: number;
   bouwjaar: number;
   klasse: string;
+  inputNaam: string;
+  inputPI: number;
+  inputPrijs: number;
+  inputHandling: number;
+  inputBouwjaar: number;
+  inputKlasse: string;
+  nieuwModel: IModelAPI;
 
   constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
               public modelService: ModellenService) { }
@@ -27,6 +35,7 @@ export class ModelDetailPage implements OnInit {
     this.setData();
     await this.haalModelOp();
     await this.laadModel();
+    await this.haalAlleModellenOp();
     this.modelNaam = this.model.modelNaam;
     this.PI = this.model.PI;
     this.prijs = this.model.prijs;
@@ -56,5 +65,11 @@ export class ModelDetailPage implements OnInit {
     });
   }
 
+  async haalAlleModellenOp(): Promise<void> {
+    await this.modelService.getModellen(this.setData()[1]).subscribe(data => {
+      this.alleModellen = data;
+      console.log(data);
+    });
+  }
 
 }

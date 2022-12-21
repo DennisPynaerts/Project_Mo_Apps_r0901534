@@ -37,7 +37,7 @@ export class AutodetailPage implements OnInit {
     await this.laadAuto();
     this.merkNaam = this.auto.merkNaam;
     this.land = this.auto.land;
-    console.log(this.modellen);
+    // console.log(this.modellen);
   }
 
   ngOnDestroy() {
