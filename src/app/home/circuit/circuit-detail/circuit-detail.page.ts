@@ -18,7 +18,8 @@ export class CircuitDetailPage implements OnInit {
   inputNaam: string;
   inputLand: string;
 
-  constructor(public navController: NavController, public activatedRoute: ActivatedRoute, public trackService: TrackService, private http: HttpClient) {
+  constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
+              public trackService: TrackService, private http: HttpClient) {
   }
 
   async ngOnInit() {

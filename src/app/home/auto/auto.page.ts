@@ -16,7 +16,7 @@ export class AutoPage implements OnInit {
   constructor(public navController: NavController, public autoService: AutoService) { }
 
   ngOnInit() {
-    // console.log(this.autos);
+  // console.log(this.autos);
   }
 
 }

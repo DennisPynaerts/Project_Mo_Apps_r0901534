@@ -39,7 +39,7 @@
 
   <ion-row *ngFor="let model of (modellen | async)">
     <ion-col size="12">
-      <ion-card color="tertiary" [routerLink]="['/home', 'auto', auto._id, 'model-detail', model.modelNaam]">
+      <ion-card color="tertiary" [routerLink]="['/home', 'auto', auto._id, 'model-detail', model._id]">
         <ion-card-content class='ion-text-center'>{{model.modelNaam}}</ion-card-content>
       </ion-card>
     </ion-col>

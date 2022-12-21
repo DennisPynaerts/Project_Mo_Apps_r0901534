@@ -1,4 +1,4 @@
-export interface ModelAPI {
+export interface IModelAPI {
     _id: string;
     modelNaam: string;
     PI: number;

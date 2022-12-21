@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AutoAPI} from '../types/AutoAPI'
 import {tap} from 'rxjs/operators';
-import {ITrackAPI} from '../types/TrackAPI';
 @Injectable({
   providedIn: 'root'
 })

@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./auto/autodetail/autodetail.module').then( m => m.AutodetailPageModule)
   },
   {
-    path: 'auto/:id/model-detail/:modelNaam',
+    path: 'auto/:id/model-detail/:modelId',
     loadChildren: () => import('./auto/model/model-detail/model-detail.module').then( m => m.ModelDetailPageModule)
   },
   {

@@ -6,7 +6,7 @@ import {ModellenService} from '../../../services/modellen.service';
 import {HttpClient} from '@angular/common/http';
 import {AutoService} from '../../../services/auto.service';
 import {AutoAPI} from '../../../types/AutoAPI';
-import {ModelAPI} from '../../../types/ModelAPI';
+import {IModelAPI} from '../../../types/IModelAPI';
 
 @Component({
   selector: 'app-autodetail',
@@ -15,7 +15,7 @@ import {ModelAPI} from '../../../types/ModelAPI';
 })
 export class AutodetailPage implements OnInit {
   #subscriptions: Subscription[] = [];
-  modellen: Observable<ModelAPI[]>;
+  modellen: Observable<IModelAPI[]>;
   verticalFabPosition: ('bottom' | 'top') = 'bottom';
   fabIsVisible = true;
   inputNaam: string;
