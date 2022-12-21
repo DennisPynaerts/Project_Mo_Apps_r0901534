@@ -23,4 +23,14 @@ export class ModellenService {
                     tap(modellen => modellen.sort((a: {modelNaam: string}, b:{modelNaam: string})=> a.modelNaam.localeCompare(b.modelNaam))));
     // haal enkel modellen op van het juiste merk (check op merkId) & sorteer alfabetisch
   }
+
+    getModelById(modelNaam: string): Observable<ModelAPI[]> {
+        return this.http
+            .get<ModelAPI[]>(
+                this.#baseURL + `/modellen/${modelNaam}`,
+                {
+                    observe: 'body',
+                    responseType: 'json'
+                })
+    }
 }

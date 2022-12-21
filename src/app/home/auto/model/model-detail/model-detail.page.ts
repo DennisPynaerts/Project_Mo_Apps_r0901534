@@ -21,14 +21,20 @@ export class ModelDetailPage implements OnInit {
 
   ngOnInit() {
     this.setData();
+    this.laadModel();
   }
 
   setData(): string {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    const id = this.activatedRoute.snapshot.paramMap.get('modelNaam');
+    // workaround modelNaam gebruiken ipv id om data op te halen
     console.log(id);
     return id;
-    // Haal id op van circuit dat gekozen is op Auto page en return
-    // 63a2036feab0e3f616b8048f
   }
+
+  laadModel() {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+    // API is soms wat traag, laat geen data zien zonder extra laadtijd
+  }
+
 
 }
