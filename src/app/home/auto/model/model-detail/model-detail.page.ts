@@ -90,7 +90,7 @@ export class ModelDetailPage implements OnInit {
   }
 
   async postData(): Promise<void> {
-    console.log(this.alleModellen.length);
+    console.log(this.alleModellen.length, ' + nieuw model: ' + this.alleModellen[1].modelNaam);
     await this.http.put<any>(
         `https://azureapi-production.up.railway.app/autos/modellen/update/${this.merkId}`,
         {
@@ -141,7 +141,7 @@ export class ModelDetailPage implements OnInit {
       handling: this.inputHandling,
       bouwjaar: this.inputBouwjaar,
       prijs: this.inputPrijs,
-      klasse: this.inputKlasse,
+      klasse: this.stelKlasseIn(Number(this.inputPI)),
       PI: this.inputPI
     }
     console.log('input modelNaam = ' + this.nieuwModel.modelNaam);
@@ -160,4 +160,24 @@ export class ModelDetailPage implements OnInit {
     this.land = this.auto.land;
   }
 
+  stelKlasseIn(pi: Number): string {
+    if (pi <= 300)
+      return 'E';
+    if (pi <= 400)
+      return 'D';
+    if (pi <= 500)
+      return 'C';
+    if (pi <= 600)
+      return 'B';
+    if (pi <= 700)
+      return 'A';
+    if (pi <= 800)
+      return 'S';
+    if (pi <= 900)
+      return 'R';
+    if (pi <= 990)
+      return 'P';
+    if (pi <= 990)
+      return 'X';
+  }
 }
