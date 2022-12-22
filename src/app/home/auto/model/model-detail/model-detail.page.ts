@@ -91,16 +91,14 @@ export class ModelDetailPage implements OnInit {
   }
 
   async postData(): Promise<void> {
-    console.log(this.alleModellen.length, ' + nieuw model: ' + this.alleModellen[1].modelNaam);
     await this.http.put<any>(
-        `https://azureapi-production.up.railway.app/autos/modellen/update/${this.merkId}`,
+        `https://azureapi-production.up.railway.app/autos/modellen/update/${this.auto._id}`,
         {
-          merkNaam: `${this.merkNaam}`,
-          land: `${this.land}`,
-          modellen: `${this.alleModellen}`
+          merkNaam: this.merkNaam,
+          land: this.land,
+          modellen: this.alleModellen
         }
-    )
-    await this.navController.back();
+    ).toPromise()
   }
 
   async haalAutoOp(): Promise<void> {
