@@ -115,7 +115,7 @@ export class ModelDetailPage implements OnInit {
 
       try {
         this.maakNieuwModelAan();
-        console.log('nieuw model modelnaam: ' + this.nieuwModel.modelNaam); // <== geeft undefined
+        console.log('nieuw model modelnaam: ' + this.nieuwModel.modelNaam);
         console.log('alle modellen: ' + this.alleModellen[0]);
         await this.postData();
       } catch (e) {
