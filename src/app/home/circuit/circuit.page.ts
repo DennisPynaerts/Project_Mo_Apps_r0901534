@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {TrackService} from '../../services/track.service';
-import {TrackAPI} from '../../types/TrackAPI';
+import {Network} from '@capacitor/network';
 
 @Component({
   selector: 'app-circuit',
@@ -16,6 +16,18 @@ export class CircuitPage implements OnInit {
   constructor(public navController: NavController, public trackService: TrackService) { }
 
   ngOnInit() {
+    this.logCurrentNetworkStatus();
+    Network.addListener('networkStatusChange', status => {
+      console.log('Network status changed', status);
+    });
   }
+
+  logCurrentNetworkStatus = async () => {
+    const status = await Network.getStatus();
+    if (!status.connected) {
+      alert('Geen verbinding!');
+    }
+    // Nakijken of er verbinding is, alert sturen als er geen is
+  };
 
 }

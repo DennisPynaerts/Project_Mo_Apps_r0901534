@@ -1,5 +1,5 @@
 export interface IModelAPI {
-    _id: string;
+    _id?: string;
     modelNaam: string;
     PI: number;
     prijs: number;
@@ -10,7 +10,7 @@ export interface IModelAPI {
 }
 
 export class ModelAPI {
-    _id: string;
+    _id?: string;
     modelNaam: string;
     PI: number;
     prijs: number;

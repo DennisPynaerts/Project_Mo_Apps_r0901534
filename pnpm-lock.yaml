@@ -19,6 +19,7 @@ specifiers:
   '@capacitor-community/sqlite': ^4.5.0
   '@capacitor/app': 4.1.0
   '@capacitor/cli': 4.4.0
+  '@capacitor/clipboard': ^4.1.0
   '@capacitor/core': 4.4.0
   '@capacitor/haptics': 4.0.1
   '@capacitor/keyboard': 4.0.1
@@ -61,6 +62,7 @@ dependencies:
   '@angular/router': 14.2.7_kpkhkxxbbfczujojuhleombtle
   '@capacitor-community/sqlite': 4.5.0_@capacitor+core@4.4.0
   '@capacitor/app': 4.1.0_@capacitor+core@4.4.0
+  '@capacitor/clipboard': 4.1.0_@capacitor+core@4.4.0
   '@capacitor/core': 4.4.0
   '@capacitor/haptics': 4.0.1_@capacitor+core@4.4.0
   '@capacitor/keyboard': 4.0.1_@capacitor+core@4.4.0
@@ -1814,6 +1816,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@capacitor/clipboard/4.1.0_@capacitor+core@4.4.0:
+    resolution: {integrity: sha512-lfUwDqZces3mQcBOyfxpBCsRWWSfLuPzekA1N3RaMgYVhD6/rdzFnzfRiksj1hm4It+lnULK0y+N5nxVnTt+0Q==}
+    peerDependencies:
+      '@capacitor/core': ^4.0.0
+    dependencies:
+      '@capacitor/core': 4.4.0
+    dev: false
 
   /@capacitor/core/4.4.0:
     resolution: {integrity: sha512-9k6EJTCMlHhr6g2oGo2FJM2byRyX5GEfB24Bv2e4fnemiiHrQEeAKdg++6Hj7jNNZtI1q+5EImTrcpXzPkiX7Q==}

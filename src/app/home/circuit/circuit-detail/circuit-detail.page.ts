@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {TrackService} from '../../../services/track.service';
-import {ITrackAPI, TrackAPI} from '../../../types/TrackAPI';
+import {ITrackAPI} from '../../../types/TrackAPI';
 import {HttpClient} from '@angular/common/http';
+import {Clipboard} from '@capacitor/clipboard';
+import {Capacitor} from '@capacitor/core';
 
 @Component({
   selector: 'app-circuit-detail',
@@ -23,11 +25,15 @@ export class CircuitDetailPage implements OnInit {
   }
 
   async ngOnInit() {
+    isNative: Capacitor.isNativePlatform();
     this.haalIdsOp();
     await this.haalTrackOp();
     await this.laadTrack(); // extra tijd geven om track binnen te halen, ging te snel
     this.naam = this.track.naam;
     this.land = this.track.land;
+    this.inputNaam = '';
+    this.inputLand = '';
+    await this.checkClipboard();
   }
 
   async haalTrackOp(): Promise<void> {
@@ -48,15 +54,16 @@ export class CircuitDetailPage implements OnInit {
   }
 
   valideerInput(): boolean {
-    const resultaat = (this.inputNaam !== '' && this.inputLand !== '');
-    return resultaat;
+    return this.inputNaam !== '' && this.inputLand !== '';
     // check of de invoervelden ingevuld zijn
   }
 
-  clickHandler(): void {
+  async clickHandler(): Promise<void> {
+    console.log(this.valideerInput());
     if (this.valideerInput()) {
       this.postData();
     } else {
+      await this.hapticsVibrate();
       alert('Vul de invoervelden in!'); // werkt dit native?
     }
   }
@@ -69,6 +76,26 @@ export class CircuitDetailPage implements OnInit {
   async postData(): Promise<void> {
     await this.http.put<any>(`https://azureapi-production.up.railway.app/tracks/update/${this.haalIdsOp()}`,
         { naam: `${this.inputNaam}`, land: `${this.inputLand}`}).subscribe();
+  }
+
+  async writeToClipboard(): Promise<void> {
+    await Clipboard.write({
+      string: await this.checkClipboard()
+    });
+  }
+
+  async checkClipboard(): Promise<string> {
+    const { type, value } = await Clipboard.read();
+    if (typeof type === 'string')
+      return value;
+
+    console.log(`Got ${type} from clipboard: ${value}`);
+    return '';
+  }
+
+  async hapticsVibrate(): Promise<void> {
+    console.log('vibrate');
+    await this.hapticsVibrate();
   }
 
 }

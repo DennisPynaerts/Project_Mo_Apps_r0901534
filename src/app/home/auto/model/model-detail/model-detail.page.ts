@@ -6,7 +6,6 @@ import {IModelAPI, ModelAPI} from '../../../../types/IModelAPI';
 import {HttpClient} from '@angular/common/http';
 import {AutoAPI} from '../../../../types/AutoAPI';
 import {AutoService} from '../../../../services/auto.service';
-import {error} from 'protractor';
 
 @Component({
   selector: 'app-model-detail',
@@ -15,7 +14,7 @@ import {error} from 'protractor';
 })
 export class ModelDetailPage implements OnInit {
   model: IModelAPI;
-  alleModellen: IModelAPI[] = [];
+  alleModellen: ModelAPI[] = [];
   modelNaam: string;
   PI: number;
   prijs: number;
@@ -28,7 +27,7 @@ export class ModelDetailPage implements OnInit {
   inputHandling: number;
   inputBouwjaar: number;
   inputKlasse: string;
-  nieuwModel: ModelAPI;
+  nieuwModel: ModelAPI = new ModelAPI();
   modelId: string;
   merkId: string;
   merkNaam: string;
@@ -91,8 +90,15 @@ export class ModelDetailPage implements OnInit {
   }
 
   async postData(): Promise<void> {
-    await this.http.put<any>(`https://azureapi-production.up.railway.app/autos/modellen/update/${this.merkId}`,
-        { naam: `${this.merkNaam}`, land: `${this.land}`, modellen: `${this.alleModellen}`}).subscribe();
+    console.log(this.alleModellen.length);
+    await this.http.put<any>(
+        `https://azureapi-production.up.railway.app/autos/modellen/update/${this.merkId}`,
+        {
+          merkNaam: `${this.merkNaam}`,
+          land: `${this.land}`,
+          modellen: `${this.alleModellen}`
+        }
+    )
   }
 
   async haalAutoOp(): Promise<void> {
@@ -103,9 +109,14 @@ export class ModelDetailPage implements OnInit {
 
   async modelAanmakenHandler(): Promise<void> {
     if (this.valideerInput()) {
-      console.log(this.inputNaam);
+      console.log('validatie check: ' + this.valideerInput());
+      console.log('merknaam: ' + this.merkNaam);
+      console.log('land: ' + this.land);
+
       try {
         this.maakNieuwModelAan();
+        console.log('nieuw model modelnaam: ' + this.nieuwModel.modelNaam); // <== geeft undefined
+        console.log('alle modellen: ' + this.alleModellen[0]);
         await this.postData();
       } catch (e) {
         console.log(e);
@@ -116,21 +127,26 @@ export class ModelDetailPage implements OnInit {
   }
 
   async verwijderenHandler(): Promise<void> {
-    await this.http.delete<any>(`https://azureapi-production.up.railway.app/autos/delete/${this.haalIdsOp()}`).subscribe();
+    await this.http.delete<any>(
+        `https://azureapi-production.up.railway.app/autos/delete/${this.haalIdsOp()}`).subscribe();
     await this.navController.back();
     // Verwijderen werkt, lijst auto's update nog trager dan lijst circuits na delete actie
   }
 
   maakNieuwModelAan(): void {
-    this.nieuwModel.modelNaam = this.inputNaam;
-    this.nieuwModel.PI = this.PI;
-    this.nieuwModel.handling = this.inputHandling;
-    this.nieuwModel.prijs = this.inputPrijs;
-    this.nieuwModel.bouwjaar = this.inputBouwjaar;
-    this.nieuwModel.klasse = this.klasse;
-    this.nieuwModel.merkId = this.merkId;
+    this.nieuwModel = {
+      // _id: (this.alleModellen.length + 1).toString(), // al '' & undefined geprobeerd + _id staat nullable nu
+      modelNaam: this.inputNaam,
+      merkId: this.merkId,
+      handling: this.inputHandling,
+      bouwjaar: this.inputBouwjaar,
+      prijs: this.inputPrijs,
+      klasse: this.inputKlasse,
+      PI: this.inputPI
+    }
+    console.log('input modelNaam = ' + this.nieuwModel.modelNaam);
     this.alleModellen.push(this.nieuwModel);
-    console.log(this.alleModellen[3]);
+    // console.log(this.alleModellen[0]);
   }
 
   async vulModelGegevensIn(): Promise<void> {
