@@ -36,6 +36,7 @@ export class NieuwCircuitPage implements OnInit {
     await this.http.post<any>('https://azureapi-production.up.railway.app/tracks/create',
 
         { naam: `${this.naam}`, land: `${this.land}`}).subscribe();
+    await this.navController.back();
   }
 
 }

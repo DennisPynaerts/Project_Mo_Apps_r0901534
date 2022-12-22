@@ -6,6 +6,7 @@ import {ITrackAPI} from '../../../types/TrackAPI';
 import {HttpClient} from '@angular/common/http';
 import {Clipboard} from '@capacitor/clipboard';
 import {Capacitor} from '@capacitor/core';
+import {Haptics} from '@capacitor/haptics';
 
 @Component({
   selector: 'app-circuit-detail',
@@ -94,8 +95,6 @@ export class CircuitDetailPage implements OnInit {
   }
 
   async hapticsVibrate(): Promise<void> {
-    console.log('vibrate');
-    await this.hapticsVibrate();
+    await Haptics.vibrate({duration: 500});
   }
-
 }

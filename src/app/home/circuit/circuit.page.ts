@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {TrackService} from '../../services/track.service';
 import {Network} from '@capacitor/network';
+import {ITrackAPI} from '../../types/TrackAPI';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-circuit',
@@ -11,7 +13,12 @@ import {Network} from '@capacitor/network';
 export class CircuitPage implements OnInit {
   verticalFabPosition: ('bottom' | 'top') = 'bottom';
   fabIsVisible = true;
-  tracks = this.trackService.getTracks();
+  tracks: Observable<ITrackAPI[]>;
+
+  ionViewWillEnter() {
+    this.tracks = this.trackService.getTracks();
+    // initialiseer tracks voordat de component ingeladen/reset wordt
+  }
 
   constructor(public navController: NavController, public trackService: TrackService) { }
 

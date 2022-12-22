@@ -13,7 +13,6 @@ export class AutoPage implements OnInit {
   fabIsVisible = true;
   autos = this.autoService.getAutos();
 
-
   constructor(public navController: NavController, public autoService: AutoService) { }
 
   ngOnInit() {

@@ -35,7 +35,8 @@ export class ModelDetailPage implements OnInit {
   auto: AutoAPI;
 
   constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
-              public modelService: ModellenService, public autoService: AutoService, public http: HttpClient) { }
+              public modelService: ModellenService, public autoService: AutoService,
+              public http: HttpClient) { }
 
   async ngOnInit() {
     this.haalIdsOp();
@@ -99,6 +100,7 @@ export class ModelDetailPage implements OnInit {
           modellen: `${this.alleModellen}`
         }
     )
+    await this.navController.back();
   }
 
   async haalAutoOp(): Promise<void> {
