@@ -62,7 +62,7 @@ export class CircuitDetailPage implements OnInit {
   async clickHandler(): Promise<void> {
     console.log(this.valideerInput());
     if (this.valideerInput()) {
-      this.postData();
+      this.updateCircuit();
     } else {
       await this.hapticsVibrate();
       alert('Vul de invoervelden in!'); // werkt dit native?
@@ -74,7 +74,7 @@ export class CircuitDetailPage implements OnInit {
     await this.navController.back();
   }
 
-  async postData(): Promise<void> {
+  async updateCircuit(): Promise<void> {
     await this.http.put<any>(`https://azureapi-production.up.railway.app/tracks/update/${this.haalIdsOp()}`,
         { naam: `${this.inputNaam}`, land: `${this.inputLand}`}).subscribe();
   }

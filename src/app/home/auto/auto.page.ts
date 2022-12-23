@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {AutoService} from '../../services/auto.service';
 import {Network} from '@capacitor/network';
+import {Observable} from 'rxjs';
+import {AutoAPI} from '../../types/IAutoAPI';
 
 @Component({
   selector: 'app-auto',
@@ -11,7 +13,12 @@ import {Network} from '@capacitor/network';
 export class AutoPage implements OnInit {
   verticalFabPosition: ('bottom' | 'top') = 'bottom';
   fabIsVisible = true;
-  autos = this.autoService.getAutos();
+  autos: Observable<AutoAPI[]>;
+
+  ionViewWillEnter() {
+    this.autos = this.autoService.getAutos();
+    // initialiseer tracks voordat de component ingeladen/reset wordt
+  }
 
   constructor(public navController: NavController, public autoService: AutoService) { }
 

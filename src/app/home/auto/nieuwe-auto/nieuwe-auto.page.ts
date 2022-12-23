@@ -51,23 +51,24 @@ export class NieuweAutoPage implements OnInit {
 
   async clickHandler(): Promise<void> {
     if (this.valideerInput()) { // <== ! weghalen
-      this.postData(); // eerst een auto met merk + land + lege array modellen
+      this.maakInitieleAutoAanZonderModellen(); // eerst een auto met merk + land + lege array modellen
       await this.laadtijdVoorAutos();
       await this.haalAlleAutosOpEnGeefIDLaatsteAutoTerug(); // merkId ophalen, anders wordt merkId niet bij model toegevoegd
       await this.laadtijdVoorAutos(); // tijd geven om laatst aangemaakte auto op te halen
       this.maakNieuwModelAan(); // nieuw model aanmaken
-      this.postData2(); // nieuw aangemaakte auto updaten → workaround voor create nieuw model
+      this.updateNieuwAangemaakteAutoEnVoegModelToe(); // nieuw aangemaakte auto updaten → workaround voor create nieuw model
     } else {
       alert('Vul de invoervelden in!');
     }
   }
 
-  async postData(): Promise<void> {
+  async maakInitieleAutoAanZonderModellen(): Promise<void> {
     await this.http.post<any>('https://azureapi-production.up.railway.app/autos/create',
         {merkNaam: `${this.inputMerknaam}`, land: `${this.inputLand}`}).subscribe();
+    // kan niet meteen modellen toevoegen omdat die een merkId nodig hebben
   }
 
-  async postData2(): Promise<void> {
+  async updateNieuwAangemaakteAutoEnVoegModelToe(): Promise<void> {
     await this.http.put<any>(
         `https://azureapi-production.up.railway.app/autos/modellen/update/${this.merkId}`,
         {
@@ -80,7 +81,6 @@ export class NieuweAutoPage implements OnInit {
   async haalAlleAutosOpEnGeefIDLaatsteAutoTerug(): Promise<void> {
     await this.autoService.getAutos().subscribe(autos => this.alleAutos = autos);
     await this.laadtijdVoorAutos();
-    console.log(this.alleAutos);
     this.laatsteAuto = this.alleAutos.find((laatsteAuto) => {
       return laatsteAuto.merkNaam === this.inputMerknaam
     });
@@ -111,7 +111,6 @@ export class NieuweAutoPage implements OnInit {
       klasse: NieuweAutoPage.stelKlasseIn(Number(this.inputPI)),
       PI: this.inputPI
     }
-    console.log('input modelNaam = ' + this.nieuwModel.modelNaam);
   }
 
   static stelKlasseIn(pi: Number): string {

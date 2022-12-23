@@ -13,20 +13,21 @@ export class ModelPage implements OnInit {
   #subscriptions: Subscription[] = [];
   #modellen = this.modellenService.getModellen('');
 
-  constructor(public navController: NavController, public activatedRoute: ActivatedRoute, public modellenService: ModellenService) {
+  constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
+              public modellenService: ModellenService) {
 
 
   }
 
   ngOnInit() {
-    this.#modellen = this.modellenService.getModellen(this.setData());
+    this.#modellen = this.modellenService.getModellen(this.haalIdUitRoute());
   }
 
   ngOnDestroy() {
     this.#subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  setData(): string {
+  haalIdUitRoute(): string {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     return id;
     //console.log(id); Haal id op van circuit dat gekozen is op Auto page en return

@@ -24,15 +24,15 @@ export class NieuwCircuitPage implements OnInit {
     // check of de invoervelden ingevuld zijn
 }
 
-  clickHandler(): void {
+  nieuwCircuitHandler(): void {
     if (this.valideerInput()) {
-      this.postData();
+      this.maakNieuwCircuitAan();
     } else {
       alert('Vul de invoervelden in!');
     }
   }
 
-  async postData(): Promise<void> {
+  async maakNieuwCircuitAan(): Promise<void> {
     await this.http.post<any>('https://azureapi-production.up.railway.app/tracks/create',
 
         { naam: `${this.naam}`, land: `${this.land}`}).subscribe();

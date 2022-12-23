@@ -38,9 +38,9 @@ export class ModelDetailPage implements OnInit {
               public http: HttpClient) { }
 
   async ngOnInit() {
-    this.haalIdsOp();
-    this.modelId = this.haalIdsOp()[0];
-    this.merkId = this.haalIdsOp()[1];
+    this.haalIdsOpUitRoute();
+    this.modelId = this.haalIdsOpUitRoute()[0];
+    this.merkId = this.haalIdsOpUitRoute()[1];
     await this.haalModelOp();
     await this.laadModel();
     await this.haalAlleModellenOp();
@@ -51,12 +51,11 @@ export class ModelDetailPage implements OnInit {
     this.nieuwModel = new ModelAPI();
   }
 
-  haalIdsOp(): string[] {
+  haalIdsOpUitRoute(): string[] {
     let idArray: string[] = [];
     const id = this.activatedRoute.snapshot.paramMap.get('modelId');
     const merkId = this.activatedRoute.snapshot.paramMap.get('id');
     idArray.push(id, merkId);
-    // console.log('modelID ' + id + ' merkID ' + merkId);
     // ik geef merkId + modelId door aan de methode haalModelOp() om het juiste model van een merk op te halen
     return idArray;
   }
@@ -67,13 +66,12 @@ export class ModelDetailPage implements OnInit {
   }
 
   async haalModelOp(): Promise<void> {
-    await this.modelService.getModelById(this.haalIdsOp()[0], this.haalIdsOp()[1]).subscribe(data => {
-      this.model = data;
-    });
+    await this.modelService.getModelById(this.haalIdsOpUitRoute()[0], this.haalIdsOpUitRoute()[1]).subscribe(
+        data => { this.model = data; });
   }
 
   async haalAlleModellenOp(): Promise<void> {
-    await this.modelService.getModellen(this.haalIdsOp()[1]).subscribe(data => {
+    await this.modelService.getModellen(this.haalIdsOpUitRoute()[1]).subscribe(data => {
       this.alleModellen = data;
     });
   }
@@ -107,14 +105,8 @@ export class ModelDetailPage implements OnInit {
 
   async modelAanmakenHandler(): Promise<void> {
     if (this.valideerInput()) {
-      console.log('validatie check: ' + this.valideerInput());
-      console.log('merknaam: ' + this.merkNaam);
-      console.log('land: ' + this.land);
-
       try {
         this.maakNieuwModelAan();
-        console.log('nieuw model modelnaam: ' + this.nieuwModel.modelNaam);
-        console.log('alle modellen: ' + this.alleModellen[0]);
         await this.postData();
       } catch (e) {
         console.log(e);
@@ -126,7 +118,7 @@ export class ModelDetailPage implements OnInit {
 
   async verwijderenHandler(): Promise<void> {
     await this.http.delete<any>(
-        `https://azureapi-production.up.railway.app/autos/delete/${this.haalIdsOp()}`).subscribe();
+        `https://azureapi-production.up.railway.app/autos/delete/${this.haalIdsOpUitRoute()}`).subscribe();
     await this.navController.back();
     // Verwijderen werkt, lijst auto's update nog trager dan lijst circuits na delete actie
   }
@@ -141,9 +133,7 @@ export class ModelDetailPage implements OnInit {
       klasse: this.stelKlasseIn(Number(this.inputPI)),
       PI: this.inputPI
     }
-    console.log('input modelNaam = ' + this.nieuwModel.modelNaam);
     this.alleModellen.push(this.nieuwModel);
-    // console.log(this.alleModellen[0]);
   }
 
   async vulModelGegevensIn(): Promise<void> {

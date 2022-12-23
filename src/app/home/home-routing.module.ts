@@ -24,10 +24,6 @@ const routes: Routes = [
     loadChildren: () => import('./circuit/circuit.module').then( m => m.CircuitPageModule)
   },
   {
-    path: 'leaderboard',
-    loadChildren: () => import('./leaderboard/leaderboard.module').then( m => m.LeaderboardPageModule)
-  },
-  {
     path: 'circuit/:id',
     loadChildren: () => import('./circuit/circuit-detail/circuit-detail.module').then( m => m.CircuitDetailPageModule)
   },

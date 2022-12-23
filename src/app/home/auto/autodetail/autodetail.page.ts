@@ -30,14 +30,13 @@ export class AutodetailPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.setData();
+    this.haalIdUitRoute();
     await this.haalAutoOp();
     await this.laadAuto();
     await this.haalModellenOp();
     await this.laadAuto();
     this.merkNaam = this.auto.merkNaam;
     this.land = this.auto.land;
-    // console.log(this.modellen);
   }
 
   ngOnDestroy() {
@@ -45,30 +44,29 @@ export class AutodetailPage implements OnInit {
   }
 
   async haalModellenOp(): Promise<void> {
-    this.modellen = this.modellenService.getModellen(this.setData());
+    this.modellen = this.modellenService.getModellen(this.haalIdUitRoute());
   }
 
   async haalAutoOp(): Promise<void> {
-    await this.autoService.getAutoById(this.setData()).subscribe(data => {
+    await this.autoService.getAutoById(this.haalIdUitRoute()).subscribe(data => {
       this.auto = data;
     });
   }
 
-  setData(): string {
+  haalIdUitRoute(): string {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     return id;
     // Haal id op van circuit dat gekozen is op Auto page en return
   }
 
   valideerInput(): boolean {
-    const resultaat = (this.inputNaam !== '' && this.inputLand !== '') ? true : false;
-    return resultaat;
+    return (this.inputNaam !== '' && this.inputLand !== '') ? true : false;
     // check of de invoervelden ingevuld zijn
   }
 
-  async clickHandler(): Promise<void> {
+  async updateAutoHandler(): Promise<void> {
     if (this.valideerInput()) {
-      await this.postData();
+      await this.updateAuto();
     } else {
       alert('Vul de invoervelden in!'); // werkt dit native?
     }
@@ -80,15 +78,14 @@ export class AutodetailPage implements OnInit {
   }
 
   async verwijderenHandler(): Promise<void> {
-    await this.http.delete<any>(`https://azureapi-production.up.railway.app/autos/delete/${this.setData()}`).subscribe();
-    await this.navController.back();
+    await this.http.delete<any>(`https://azureapi-production.up.railway.app/autos/delete/${this.haalIdUitRoute()}`).subscribe();
     // Verwijderen werkt, lijst auto's update nog trager dan lijst circuits na delete actie
   }
 
-  async postData(): Promise<void> {
-    await this.http.put<any>(`https://azureapi-production.up.railway.app/autos/update/${this.setData()}`,
+  async updateAuto(): Promise<void> {
+    await this.http.put<any>(`https://azureapi-production.up.railway.app/autos/update/${this.haalIdUitRoute()}`,
         { merkNaam: `${this.inputNaam}`, land: `${this.inputLand}`}).subscribe();
-    // Updaten werkt, lijst auto's update nog trager dan lijst circuits na delete actie
+    // Updaten werkt, lijst auto's update nog trager dan lijst circuits
   }
 
 }
