@@ -6,6 +6,8 @@ import {IModelAPI, ModelAPI} from '../../../../types/IModelAPI';
 import {HttpClient} from '@angular/common/http';
 import {IAutoAPI} from '../../../../types/IAutoAPI';
 import {AutoService} from '../../../../services/auto.service';
+import {Haptics} from '@capacitor/haptics';
+import {Clipboard} from '@capacitor/clipboard';
 
 @Component({
   selector: 'app-model-detail',
@@ -82,8 +84,14 @@ export class ModelDetailPage implements OnInit {
         Number(this.inputBouwjaar) &&
         Number(this.inputPI) &&
         Number(this.inputPrijs) &&
-        Number(this.inputHandling)) ? true : false;
-    // check of de invoervelden ingevuld zijn
+        Number(this.inputHandling)) &&
+        this.inputBouwjaar > 1930 &&
+        this.inputBouwjaar < new Date().getFullYear() &&
+        this.inputPI > 0 &&
+        this.inputPI < 1000 &&
+        this.inputHandling < 10 &&
+        this.inputPrijs > 0 ? true : false;
+    // check of de invoervelden ingevuld zijn en kijk na of de gegevens kloppen
   }
 
   async postData(): Promise<void> {
@@ -112,16 +120,17 @@ export class ModelDetailPage implements OnInit {
         console.log(e);
       }
     } else {
-      alert('Vul de invoervelden in!'); // werkt dit native?
+      await this.hapticsVibrate();
+      alert('Vul de invoervelden in!');
     }
   }
 
-  async verwijderenHandler(): Promise<void> {
-    await this.http.delete<any>(
-        `https://azureapi-production.up.railway.app/autos/delete/${this.haalIdsOpUitRoute()}`).subscribe();
-    await this.navController.back();
-    // Verwijderen werkt, lijst auto's update nog trager dan lijst circuits na delete actie
-  }
+  // async verwijderenHandler(): Promise<void> {
+  //   await this.http.delete<any>(
+  //       `https://azureapi-production.up.railway.app/autos/delete/${this.haalIdsOpUitRoute()}`).subscribe();
+  //   await this.navController.back();
+  //   // Verwijderen werkt, lijst auto's update nog trager dan lijst circuits na delete actie
+  // }
 
   maakNieuwModelAan(): void {
     this.nieuwModel = {
@@ -166,5 +175,24 @@ export class ModelDetailPage implements OnInit {
       return 'P';
     if (pi <= 990)
       return 'X';
+  }
+
+  async hapticsVibrate(): Promise<void> {
+    await Haptics.vibrate({duration: 500});
+  }
+
+  async writeToClipboard(): Promise<void> {
+    await Clipboard.write({
+      string: await this.checkClipboard()
+    });
+  }
+
+  async checkClipboard(): Promise<string> {
+    const { type, value } = await Clipboard.read();
+    if (typeof type === 'string')
+      return value;
+
+    console.log(`Got ${type} from clipboard: ${value}`);
+    return '';
   }
 }

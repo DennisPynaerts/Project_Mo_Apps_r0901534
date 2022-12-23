@@ -4,6 +4,7 @@ import {AutoService} from '../../services/auto.service';
 import {Network} from '@capacitor/network';
 import {Observable} from 'rxjs';
 import {AutoAPI} from '../../types/IAutoAPI';
+import {Haptics} from '@capacitor/haptics';
 
 @Component({
   selector: 'app-auto',
@@ -29,12 +30,16 @@ export class AutoPage implements OnInit {
     });
   }
 
-  logCurrentNetworkStatus = async () => {
+  async logCurrentNetworkStatus(): Promise<void> {
     const status = await Network.getStatus();
     if (!status.connected) {
+      await this.hapticsVibrate();
       alert('Geen verbinding!');
     }
-    // Nakijken of er verbinding is, alert sturen als er geen is
+    // Nakijken of er verbinding is, alert sturen als er geen is + trillen
   };
 
+  async hapticsVibrate(): Promise<void> {
+    await Haptics.vibrate({duration: 500});
+  }
 }

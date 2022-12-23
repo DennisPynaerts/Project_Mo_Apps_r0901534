@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
+import {Haptics} from '@capacitor/haptics';
+import {Clipboard} from '@capacitor/clipboard';
 
 @Component({
   selector: 'app-nieuw-circuit',
@@ -24,10 +26,11 @@ export class NieuwCircuitPage implements OnInit {
     // check of de invoervelden ingevuld zijn
 }
 
-  nieuwCircuitHandler(): void {
+  async nieuwCircuitHandler(): Promise<void> {
     if (this.valideerInput()) {
       this.maakNieuwCircuitAan();
     } else {
+      await this.hapticsVibrate();
       alert('Vul de invoervelden in!');
     }
   }
@@ -39,4 +42,22 @@ export class NieuwCircuitPage implements OnInit {
     await this.navController.back();
   }
 
+  async hapticsVibrate(): Promise<void> {
+    await Haptics.vibrate({duration: 500});
+  }
+
+  async writeToClipboard(): Promise<void> {
+    await Clipboard.write({
+      string: await this.checkClipboard()
+    });
+  }
+
+  async checkClipboard(): Promise<string> {
+    const { type, value } = await Clipboard.read();
+    if (typeof type === 'string')
+      return value;
+
+    console.log(`Got ${type} from clipboard: ${value}`);
+    return '';
+  }
 }

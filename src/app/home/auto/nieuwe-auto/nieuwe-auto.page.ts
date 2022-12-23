@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {AutoAPI, IAutoAPI} from '../../../types/IAutoAPI';
 import {ModelAPI} from '../../../types/IModelAPI';
 import {AutoService} from '../../../services/auto.service';
+import {Haptics} from '@capacitor/haptics';
 
 @Component({
   selector: 'app-nieuwe-auto',
@@ -45,11 +46,17 @@ export class NieuweAutoPage implements OnInit {
         Number(this.inputBouwjaar) &&
         Number(this.inputPI) &&
         Number(this.inputPrijs) &&
-        Number(this.inputHandling)) ? true : false;
-    // check of de invoervelden ingevuld zijn
+        Number(this.inputHandling)) &&
+        this.inputBouwjaar > 1930 &&
+        this.inputBouwjaar < new Date().getFullYear() &&
+        this.inputPI > 0 &&
+        this.inputPI < 1000 &&
+        this.inputHandling < 10 &&
+        this.inputPrijs > 0 ? true : false;
+    // check of de invoervelden ingevuld zijn en kijk na of de gegevens kloppen
   }
 
-  async clickHandler(): Promise<void> {
+  async nieuweAutoHandler(): Promise<void> {
     if (this.valideerInput()) { // <== ! weghalen
       this.maakInitieleAutoAanZonderModellen(); // eerst een auto met merk + land + lege array modellen
       await this.laadtijdVoorAutos();
@@ -58,6 +65,7 @@ export class NieuweAutoPage implements OnInit {
       this.maakNieuwModelAan(); // nieuw model aanmaken
       this.updateNieuwAangemaakteAutoEnVoegModelToe(); // nieuw aangemaakte auto updaten → workaround voor create nieuw model
     } else {
+      await this.hapticsVibrate();
       alert('Vul de invoervelden in!');
     }
   }
@@ -137,5 +145,9 @@ export class NieuweAutoPage implements OnInit {
   laadtijdVoorAutos(): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, 2000));
     // API is soms wat traag, laat geen data zien zonder extra laadtijd
+  }
+
+  async hapticsVibrate(): Promise<void> {
+    await Haptics.vibrate({duration: 500});
   }
 }

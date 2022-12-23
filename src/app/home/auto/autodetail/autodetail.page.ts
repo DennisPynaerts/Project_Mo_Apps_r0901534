@@ -7,6 +7,9 @@ import {HttpClient} from '@angular/common/http';
 import {AutoService} from '../../../services/auto.service';
 import {IAutoAPI} from '../../../types/IAutoAPI';
 import {IModelAPI} from '../../../types/IModelAPI';
+import {Network} from '@capacitor/network';
+import {Haptics} from '@capacitor/haptics';
+import {Clipboard} from '@capacitor/clipboard';
 
 @Component({
   selector: 'app-autodetail',
@@ -68,7 +71,8 @@ export class AutodetailPage implements OnInit {
     if (this.valideerInput()) {
       await this.updateAuto();
     } else {
-      alert('Vul de invoervelden in!'); // werkt dit native?
+      await this.hapticsVibrate();
+      alert('Vul de invoervelden in!');
     }
   }
 
@@ -88,4 +92,22 @@ export class AutodetailPage implements OnInit {
     // Updaten werkt, lijst auto's update nog trager dan lijst circuits
   }
 
+  async hapticsVibrate(): Promise<void> {
+    await Haptics.vibrate({duration: 500});
+  }
+
+  async writeToClipboard(): Promise<void> {
+    await Clipboard.write({
+      string: await this.checkClipboard()
+    });
+  }
+
+  async checkClipboard(): Promise<string> {
+    const { type, value } = await Clipboard.read();
+    if (typeof type === 'string')
+      return value;
+
+    console.log(`Got ${type} from clipboard: ${value}`);
+    return '';
+  }
 }

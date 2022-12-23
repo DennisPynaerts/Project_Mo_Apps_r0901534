@@ -65,7 +65,7 @@ export class CircuitDetailPage implements OnInit {
       this.updateCircuit();
     } else {
       await this.hapticsVibrate();
-      alert('Vul de invoervelden in!'); // werkt dit native?
+      alert('Vul de invoervelden in!');
     }
   }
 
