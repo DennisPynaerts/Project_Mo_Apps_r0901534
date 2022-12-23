@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ModellenService} from '../../../../services/modellen.service';
 import {IModelAPI, ModelAPI} from '../../../../types/IModelAPI';
 import {HttpClient} from '@angular/common/http';
-import {AutoAPI} from '../../../../types/AutoAPI';
+import {IAutoAPI} from '../../../../types/IAutoAPI';
 import {AutoService} from '../../../../services/auto.service';
 
 @Component({
@@ -26,13 +26,12 @@ export class ModelDetailPage implements OnInit {
   inputPrijs: number;
   inputHandling: number;
   inputBouwjaar: number;
-  inputKlasse: string;
   nieuwModel: ModelAPI = new ModelAPI();
   modelId: string;
   merkId: string;
   merkNaam: string;
   land: string;
-  auto: AutoAPI;
+  auto: IAutoAPI;
 
   constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
               public modelService: ModellenService, public autoService: AutoService,
@@ -82,7 +81,6 @@ export class ModelDetailPage implements OnInit {
   valideerInput(): boolean {
     return (
         this.inputNaam !== '' &&
-        this.inputKlasse !== '' &&
         Number(this.inputBouwjaar) &&
         Number(this.inputPI) &&
         Number(this.inputPrijs) &&
@@ -135,7 +133,6 @@ export class ModelDetailPage implements OnInit {
 
   maakNieuwModelAan(): void {
     this.nieuwModel = {
-      // _id: (this.alleModellen.length + 1).toString(), // al '' & undefined geprobeerd + _id staat nullable nu
       modelNaam: this.inputNaam,
       merkId: this.merkId,
       handling: this.inputHandling,

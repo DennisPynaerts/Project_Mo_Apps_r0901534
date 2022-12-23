@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ModellenService} from '../../../services/modellen.service';
 import {HttpClient} from '@angular/common/http';
 import {AutoService} from '../../../services/auto.service';
-import {AutoAPI} from '../../../types/AutoAPI';
+import {IAutoAPI} from '../../../types/IAutoAPI';
 import {IModelAPI} from '../../../types/IModelAPI';
 
 @Component({
@@ -22,7 +22,7 @@ export class AutodetailPage implements OnInit {
   inputLand: string;
   merkNaam: string;
   land: string;
-  auto: AutoAPI;
+  auto: IAutoAPI;
 
   constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
               public modellenService: ModellenService, public http: HttpClient,

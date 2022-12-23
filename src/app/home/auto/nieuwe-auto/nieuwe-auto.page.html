@@ -13,14 +13,70 @@
 </ion-header>
 
 <ion-content>
-  <ion-label position="floating">Merknaam</ion-label>
-  <ion-input type="text" class="ion-margin-top"
-             [(ngModel)]='merkNaam'></ion-input>
-  <ion-label position="floating">Land</ion-label>
-  <ion-input type="text" class="ion-margin-top"
-             [(ngModel)]='land'></ion-input>
-  <ion-input type="text" hidden [(ngModel)]='modellen'></ion-input>
+  <ion-row>
+    <ion-col size="12">
+      <h1>Merk toevoegen</h1>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-label position="floating">Merknaam</ion-label>
+      <ion-input type="text" class="ion-margin-top"
+                 [(ngModel)]='inputMerknaam'></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-label position="floating">Land</ion-label>
+      <ion-input type="text" class="ion-margin-top"
+                 [(ngModel)]='inputLand'></ion-input>
+      <ion-input type="text" hidden [(ngModel)]='modellen'></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <h1>Model toevoegen</h1>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-label position="floating">Modelnaam</ion-label>
+      <ion-input type="text" class="ion-margin-top" [(ngModel)]='inputNaam'></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-label position="floating">PI</ion-label>
+      <ion-input type="text" class="ion-margin-top" [(ngModel)]='inputPI'></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-label position="floating">Prijs</ion-label>
+      <ion-input type="text" class="ion-margin-top" [(ngModel)]='inputPrijs'></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-label position="floating">Handling</ion-label>
+      <ion-input type="text" class="ion-margin-top" [(ngModel)]='inputHandling'></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-label position="floating">Bouwjaar</ion-label>
+      <ion-input type="text" class="ion-margin-top" [(ngModel)]='inputBouwjaar'></ion-input>
+    </ion-col>
+  </ion-row>
   <ion-button (click)="clickHandler()">
-    <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+    <ion-icon slot="icon-only" name="checkmark"></ion-icon>Opslaan
   </ion-button>
 </ion-content>

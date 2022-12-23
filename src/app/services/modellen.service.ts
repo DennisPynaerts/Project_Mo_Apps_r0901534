@@ -34,14 +34,16 @@ export class ModellenService {
                     responseType: 'json'
                 }).pipe(
                 map(x => x.filter(y => y.merkId === merkId)), //auto's filter waar merkId gelijk is aan binnenkomend merkId
-                tap(modellen => modellen.sort((a: {modelNaam: string}, b:{modelNaam: string})=> a.modelNaam.localeCompare(b.modelNaam))),
+                tap(modellen => modellen.sort((a: {modelNaam: string}, b:{modelNaam: string}) =>
+                    a.modelNaam.localeCompare(b.modelNaam))),
                 map(x => x.map(y => {
                     const z = new ModelAPI();
                     Object.assign(z, y);
                     return z;
                 }))
             );
-// haal enkel modellen op van het juiste merk (check op merkId) & sorteer alfabetisch
+            // haal enkel modellen op van het juiste merk (check op merkId) & sorteer alfabetisch
+            // maak van binnenkomende modellen instanties van ModelAPI
     }
 
     getModelById(modelId: string, merkId: string): Observable<IModelAPI> {
