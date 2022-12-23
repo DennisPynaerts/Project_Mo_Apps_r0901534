@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'Project_r0901534',
+  appId: 'r0901534.Project.MoApps',
+  appName: 'Forza_App',
   webDir: 'www',
   bundledWebRuntime: false
 };

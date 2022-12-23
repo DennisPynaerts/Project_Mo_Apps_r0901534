@@ -17,7 +17,7 @@ export class AutoPage implements OnInit {
 
   ionViewWillEnter() {
     this.autos = this.autoService.getAutos();
-    // initialiseer tracks voordat de component ingeladen/reset wordt
+    // initialiseer auto's voordat de component ingeladen/reset wordt
   }
 
   constructor(public navController: NavController, public autoService: AutoService) { }
