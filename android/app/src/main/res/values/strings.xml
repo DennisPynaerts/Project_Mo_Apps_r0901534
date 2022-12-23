@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Forza_App</string>
+    <string name="title_activity_main">Forza_App</string>
+    <string name="package_name">r0901534.Project.MoApps</string>
+    <string name="custom_url_scheme">r0901534.Project.MoApps</string>
+</resources>

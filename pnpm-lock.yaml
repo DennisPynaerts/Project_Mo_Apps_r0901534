@@ -17,6 +17,7 @@ specifiers:
   '@angular/platform-browser-dynamic': ^14.0.0
   '@angular/router': ^14.0.0
   '@capacitor-community/sqlite': ^4.5.0
+  '@capacitor/android': ^4.6.1
   '@capacitor/app': 4.1.0
   '@capacitor/cli': 4.4.0
   '@capacitor/clipboard': ^4.1.0
@@ -61,6 +62,7 @@ dependencies:
   '@angular/platform-browser-dynamic': 14.2.7_q4va4uwl4uyjrhqsdbamttsfvi
   '@angular/router': 14.2.7_kpkhkxxbbfczujojuhleombtle
   '@capacitor-community/sqlite': 4.5.0_@capacitor+core@4.4.0
+  '@capacitor/android': 4.6.1_@capacitor+core@4.4.0
   '@capacitor/app': 4.1.0_@capacitor+core@4.4.0
   '@capacitor/clipboard': 4.1.0_@capacitor+core@4.4.0
   '@capacitor/core': 4.4.0
@@ -1781,6 +1783,14 @@ packages:
     dependencies:
       '@capacitor/core': 4.4.0
       jeep-sqlite: 1.6.9
+    dev: false
+
+  /@capacitor/android/4.6.1_@capacitor+core@4.4.0:
+    resolution: {integrity: sha512-Hnh1tmUr1SP67U6D6ry5I5BEBSN/1nkBAIjQIqf5tF82WNxKbpbC6GfkHE4hMJZinRTrCf36LkrdP8srh7SxoA==}
+    peerDependencies:
+      '@capacitor/core': ^4.6.0
+    dependencies:
+      '@capacitor/core': 4.4.0
     dev: false
 
   /@capacitor/app/4.1.0_@capacitor+core@4.4.0:

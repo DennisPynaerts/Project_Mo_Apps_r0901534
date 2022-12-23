@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "@capacitor-community/sqlite": "^4.5.0",
+    "@capacitor/android": "^4.6.1",
     "@capacitor/app": "4.1.0",
     "@capacitor/clipboard": "^4.1.0",
     "@capacitor/core": "4.4.0",
