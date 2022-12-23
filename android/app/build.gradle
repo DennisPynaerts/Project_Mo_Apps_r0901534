@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    namespace 'r0901534.Project.MoApps'
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "r0901534.Project.MoApps"
