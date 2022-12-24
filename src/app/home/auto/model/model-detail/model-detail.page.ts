@@ -94,7 +94,7 @@ export class ModelDetailPage implements OnInit {
     // check of de invoervelden ingevuld zijn en kijk na of de gegevens kloppen
   }
 
-  async postData(): Promise<void> {
+  async pasAutoAan(): Promise<void> {
     await this.http.put<any>(
         `https://azureapi-production.up.railway.app/autos/modellen/update/${this.auto._id}`,
         {
@@ -115,7 +115,7 @@ export class ModelDetailPage implements OnInit {
     if (this.valideerInput()) {
       try {
         this.maakNieuwModelAan();
-        await this.postData();
+        await this.pasAutoAan();
       } catch (e) {
         console.log(e);
       }
@@ -125,12 +125,52 @@ export class ModelDetailPage implements OnInit {
     }
   }
 
-  // async verwijderenHandler(): Promise<void> {
-  //   await this.http.delete<any>(
-  //       `https://azureapi-production.up.railway.app/autos/delete/${this.haalIdsOpUitRoute()}`).subscribe();
-  //   await this.navController.back();
-  //   // Verwijderen werkt, lijst auto's update nog trager dan lijst circuits na delete actie
-  // }
+  async modelVerwijderenHandler(): Promise<void> {
+    try {
+      this.haalModelUitArray(this.modelId);
+      await this.pasAutoAan();
+    } catch (e) {
+      await this.hapticsVibrate();
+      alert('Er is iets mis gegaan!');
+      console.log(e);
+    }
+  }
+
+  async modelAanpassenHandler(): Promise<void> {
+    if (this.valideerInput()) {
+      try {
+        this.pasModelAan();
+        await this.pasAutoAan();
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      await this.hapticsVibrate();
+      alert('Vul de invoervelden in!');
+    }
+  }
+
+  haalModelUitArray(id: string): void {
+    let index = this.alleModellen.findIndex(model => model._id === id);
+    this.alleModellen.splice(index, 1);
+  }
+
+  pasModelAan(): void {
+    this.haalModelUitArray(this.modelId);
+    // Zoek model in array via id en haal het uit array
+
+    this.nieuwModel = {
+      modelNaam: this.inputNaam,
+      merkId: this.merkId,
+      handling: this.inputHandling,
+      bouwjaar: this.inputBouwjaar,
+      prijs: this.inputPrijs,
+      klasse: this.stelKlasseIn(Number(this.inputPI)),
+      PI: this.inputPI
+    }
+    this.alleModellen.push(this.nieuwModel);
+    // maak nieuw model aan en voeg toe aan array
+  }
 
   maakNieuwModelAan(): void {
     this.nieuwModel = {

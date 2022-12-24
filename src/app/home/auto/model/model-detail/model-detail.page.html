@@ -99,13 +99,24 @@
   </ion-row>
 
   <ion-row>
-    <ion-col size="6">
+    <ion-col size="12">
       <ion-button (click)="modelAanmakenHandler()">
         <ion-icon slot="icon-only" name="save-outline"></ion-icon>Aanmaken
       </ion-button>
     </ion-col>
-    <ion-col size="6">
-      <ion-button (click)="verwijderenHandler()">
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-button (click)="modelAanpassenHandler()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>Aanpassen
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-button (click)="modelVerwijderenHandler()">
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>Verwijderen
       </ion-button>
     </ion-col>

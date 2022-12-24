@@ -19,7 +19,6 @@ import {Clipboard} from '@capacitor/clipboard';
 export class AutodetailPage implements OnInit {
   #subscriptions: Subscription[] = [];
   modellen: Observable<IModelAPI[]>;
-  verticalFabPosition: ('bottom' | 'top') = 'bottom';
   fabIsVisible = true;
   inputNaam: string;
   inputLand: string;
@@ -40,6 +39,8 @@ export class AutodetailPage implements OnInit {
     await this.laadAuto();
     this.merkNaam = this.auto.merkNaam;
     this.land = this.auto.land;
+    this.inputLand = '';
+    this.inputNaam = '';
   }
 
   ngOnDestroy() {
@@ -51,9 +52,9 @@ export class AutodetailPage implements OnInit {
   }
 
   async haalAutoOp(): Promise<void> {
-    await this.autoService.getAutoById(this.haalIdUitRoute()).subscribe(data => {
+    this.#subscriptions.push(this.autoService.getAutoById(this.haalIdUitRoute()).subscribe(data => {
       this.auto = data;
-    });
+    }));
   }
 
   haalIdUitRoute(): string {
@@ -68,6 +69,7 @@ export class AutodetailPage implements OnInit {
   }
 
   async updateAutoHandler(): Promise<void> {
+    console.log(this.valideerInput());
     if (this.valideerInput()) {
       await this.updateAuto();
     } else {
