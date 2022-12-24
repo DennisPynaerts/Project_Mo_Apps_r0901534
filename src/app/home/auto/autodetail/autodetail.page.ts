@@ -7,7 +7,6 @@ import {HttpClient} from '@angular/common/http';
 import {AutoService} from '../../../services/auto.service';
 import {IAutoAPI} from '../../../types/IAutoAPI';
 import {IModelAPI} from '../../../types/IModelAPI';
-import {Network} from '@capacitor/network';
 import {Haptics} from '@capacitor/haptics';
 import {Clipboard} from '@capacitor/clipboard';
 
@@ -58,8 +57,7 @@ export class AutodetailPage implements OnInit {
   }
 
   haalIdUitRoute(): string {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    return id;
+    return this.activatedRoute.snapshot.paramMap.get('id');
     // Haal id op van circuit dat gekozen is op Auto page en return
   }
 
@@ -83,7 +81,7 @@ export class AutodetailPage implements OnInit {
     // API is soms wat traag, laat geen data zien zonder extra laadtijd
   }
 
-  async verwijderenHandler(): Promise<void> {
+  async autoVerwijderenHandler(): Promise<void> {
     await this.http.delete<any>(`https://azureapi-production.up.railway.app/autos/delete/${this.haalIdUitRoute()}`).subscribe();
     // Verwijderen werkt, lijst auto's update nog trager dan lijst circuits na delete actie
   }
@@ -109,7 +107,7 @@ export class AutodetailPage implements OnInit {
     if (typeof type === 'string')
       return value;
 
-    console.log(`Got ${type} from clipboard: ${value}`);
+    // console.log(`Got ${type} from clipboard: ${value}`);
     return '';
   }
 }

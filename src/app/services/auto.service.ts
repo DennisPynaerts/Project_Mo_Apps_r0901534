@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IAutoAPI} from '../types/IAutoAPI'
 import {tap} from 'rxjs/operators';
+import {ModelAPI} from '../types/IModelAPI';
 @Injectable({
   providedIn: 'root'
 })
@@ -44,5 +45,21 @@ export class AutoService {
                     responseType: 'json'
                 }
             );
+    }
+
+    async maakInitieleAutoAanZonderModellen(merkNaam: string, land: string): Promise<void> {
+        await this.http.post<any>('https://azureapi-production.up.railway.app/autos/create',
+            {merkNaam: `${merkNaam}`, land: `${land}`}).subscribe();
+        // kan niet meteen modellen toevoegen omdat die een merkId nodig hebben
+    }
+
+    async updateNieuwAangemaakteAutoEnVoegModelToe(merkId: string, merkNaam: string, land: string, modellen: ModelAPI): Promise<void> {
+        await this.http.put<any>(
+            `https://azureapi-production.up.railway.app/autos/modellen/update/${merkId}`,
+            {
+                merkNaam: merkNaam,
+                land: land,
+                modellen: modellen
+            }).toPromise()
     }
 }
