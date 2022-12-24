@@ -48,7 +48,7 @@ export class NieuweAutoPage implements OnInit {
         Number(this.inputPrijs) &&
         Number(this.inputHandling)) &&
         this.inputBouwjaar > 1930 &&
-        this.inputBouwjaar < new Date().getFullYear() &&
+        this.inputBouwjaar <= new Date().getFullYear() &&
         this.inputPI > 0 &&
         this.inputPI < 1000 &&
         this.inputHandling < 10 &&
