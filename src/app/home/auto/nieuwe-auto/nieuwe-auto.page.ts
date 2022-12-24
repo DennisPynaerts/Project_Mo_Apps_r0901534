@@ -57,33 +57,19 @@ export class NieuweAutoPage implements OnInit {
   }
 
   async nieuweAutoHandler(): Promise<void> {
-    if (this.valideerInput()) { // <== ! weghalen
-      this.maakInitieleAutoAanZonderModellen(); // eerst een auto met merk + land + lege array modellen
+    if (this.valideerInput()) {
+      await this.autoService.maakInitieleAutoAanZonderModellen(this.inputMerknaam, this.inputLand);
+      // this.maakInitieleAutoAanZonderModellen(); // eerst een auto met merk + land + lege array modellen
       await this.laadtijdVoorAutos();
       await this.haalAlleAutosOpEnGeefIDLaatsteAutoTerug(); // merkId ophalen, anders wordt merkId niet bij model toegevoegd
       await this.laadtijdVoorAutos(); // tijd geven om laatst aangemaakte auto op te halen
       this.maakNieuwModelAan(); // nieuw model aanmaken
-      this.updateNieuwAangemaakteAutoEnVoegModelToe(); // nieuw aangemaakte auto updaten → workaround voor create nieuw model
+      await this.autoService.updateNieuwAangemaakteAutoEnVoegModelToe(this.merkId, this.inputMerknaam, this.inputLand, this.nieuwModel);
+      // this.updateNieuwAangemaakteAutoEnVoegModelToe(); // nieuw aangemaakte auto updaten → workaround voor create nieuw model
     } else {
       await this.hapticsVibrate();
       alert('Vul de invoervelden in!');
     }
-  }
-
-  async maakInitieleAutoAanZonderModellen(): Promise<void> {
-    await this.http.post<any>('https://azureapi-production.up.railway.app/autos/create',
-        {merkNaam: `${this.inputMerknaam}`, land: `${this.inputLand}`}).subscribe();
-    // kan niet meteen modellen toevoegen omdat die een merkId nodig hebben
-  }
-
-  async updateNieuwAangemaakteAutoEnVoegModelToe(): Promise<void> {
-    await this.http.put<any>(
-        `https://azureapi-production.up.railway.app/autos/modellen/update/${this.merkId}`,
-        {
-          merkNaam: this.merkNaam,
-          land: this.land,
-          modellen: this.nieuwModel
-        }).toPromise()
   }
 
   async haalAlleAutosOpEnGeefIDLaatsteAutoTerug(): Promise<void> {
@@ -92,8 +78,8 @@ export class NieuweAutoPage implements OnInit {
     this.laatsteAuto = this.alleAutos.find((laatsteAuto) => {
       return laatsteAuto.merkNaam === this.inputMerknaam
     });
-    let autoModel = new AutoAPI();
-    autoModel = {
+    let nieuweAuto = new AutoAPI();
+    nieuweAuto = {
       _id: this.laatsteAuto._id,
       merkNaam: this.laatsteAuto.merkNaam,
       land: this.laatsteAuto.land,
@@ -106,7 +92,7 @@ export class NieuweAutoPage implements OnInit {
         klasse: ''
       }]
     }
-    this.merkId = autoModel._id;
+    this.merkId = nieuweAuto._id;
   }
 
   maakNieuwModelAan(): void {
