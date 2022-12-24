@@ -34,6 +34,21 @@ export class TrackService {
                 }
             );
     }
+
+    async verwijderCircuit(circuitId: string): Promise<void> {
+        await this.http.delete<any>(`${this.#baseURL}/delete/${circuitId}`).subscribe();
+    }
+
+    async updateCircuit(circuitId: string, naam: string, land: string): Promise<void> {
+        await this.http.put<any>(`${this.#baseURL}/update/${circuitId}`,
+            { naam: `${naam}`, land: `${land}`}).subscribe();
+    }
+
+    async maakNieuwCircuitAan(naam: string, land: string): Promise<void> {
+        await this.http.post<any>(`${this.#baseURL}/create`,
+
+            { naam: `${naam}`, land: `${land}`}).subscribe();
+    }
 }
 
 

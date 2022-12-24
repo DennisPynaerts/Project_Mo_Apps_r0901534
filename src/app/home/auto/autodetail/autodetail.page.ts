@@ -3,7 +3,6 @@ import {NavController} from '@ionic/angular';
 import {Observable, Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {ModellenService} from '../../../services/modellen.service';
-import {HttpClient} from '@angular/common/http';
 import {AutoService} from '../../../services/auto.service';
 import {IAutoAPI} from '../../../types/IAutoAPI';
 import {IModelAPI} from '../../../types/IModelAPI';
@@ -27,8 +26,7 @@ export class AutodetailPage implements OnInit {
   merkId: string;
 
   constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
-              public modellenService: ModellenService, public http: HttpClient,
-              public autoService: AutoService) {
+              public modellenService: ModellenService, public autoService: AutoService) {
   }
 
   async ngOnInit() {

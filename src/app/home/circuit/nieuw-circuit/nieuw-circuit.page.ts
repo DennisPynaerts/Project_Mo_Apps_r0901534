@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
-import {HttpClient} from '@angular/common/http';
 import {Haptics} from '@capacitor/haptics';
 import {Clipboard} from '@capacitor/clipboard';
+import {TrackService} from '../../../services/track.service';
 
 @Component({
   selector: 'app-nieuw-circuit',
@@ -13,7 +13,7 @@ export class NieuwCircuitPage implements OnInit {
   naam: string;
   land: string;
 
-  constructor(public navController: NavController, private http: HttpClient) { }
+  constructor(public navController: NavController, public trackService: TrackService) { }
 
   ngOnInit() {
     this.naam = '';
@@ -28,18 +28,16 @@ export class NieuwCircuitPage implements OnInit {
 
   async nieuwCircuitHandler(): Promise<void> {
     if (this.valideerInput()) {
-      this.maakNieuwCircuitAan();
+      try {
+        await this.trackService.maakNieuwCircuitAan(this.naam, this.land);
+      } catch (e) {
+        await this.hapticsVibrate();
+        alert('Er is iets mis gegaan bij het aanmaken!');
+      }
     } else {
       await this.hapticsVibrate();
       alert('Vul de invoervelden in!');
     }
-  }
-
-  async maakNieuwCircuitAan(): Promise<void> {
-    await this.http.post<any>('https://azureapi-production.up.railway.app/tracks/create',
-
-        { naam: `${this.naam}`, land: `${this.land}`}).subscribe();
-    await this.navController.back();
   }
 
   async hapticsVibrate(): Promise<void> {
