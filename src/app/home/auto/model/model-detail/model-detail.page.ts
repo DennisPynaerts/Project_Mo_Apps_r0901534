@@ -94,17 +94,6 @@ export class ModelDetailPage implements OnInit {
     // check of de invoervelden ingevuld zijn en kijk na of de gegevens kloppen
   }
 
-  async pasAutoAan(): Promise<void> {
-    await this.http.put<any>(
-        `https://azureapi-production.up.railway.app/autos/modellen/update/${this.auto._id}`,
-        {
-          merkNaam: this.merkNaam,
-          land: this.land,
-          modellen: this.alleModellen
-        }
-    ).toPromise()
-  }
-
   async haalAutoOp(): Promise<void> {
     await this.autoService.getAutoById(this.merkId).subscribe(data => {
       this.auto = data;
@@ -115,7 +104,7 @@ export class ModelDetailPage implements OnInit {
     if (this.valideerInput()) {
       try {
         this.maakNieuwModelAan();
-        await this.pasAutoAan();
+        await this.autoService.pasAutoAan(this.merkId, this.merkNaam, this.land, this.alleModellen);
       } catch (e) {
         console.log(e);
       }
@@ -128,7 +117,7 @@ export class ModelDetailPage implements OnInit {
   async modelVerwijderenHandler(): Promise<void> {
     try {
       this.haalModelUitArray(this.modelId);
-      await this.pasAutoAan();
+      await this.autoService.pasAutoAan(this.merkId, this.merkNaam, this.land, this.alleModellen);
     } catch (e) {
       await this.hapticsVibrate();
       alert('Er is iets mis gegaan!');
@@ -140,7 +129,7 @@ export class ModelDetailPage implements OnInit {
     if (this.valideerInput()) {
       try {
         this.pasModelAan();
-        await this.pasAutoAan();
+        await this.autoService.pasAutoAan(this.merkId, this.merkNaam, this.land, this.alleModellen);
       } catch (e) {
         console.log(e);
       }
