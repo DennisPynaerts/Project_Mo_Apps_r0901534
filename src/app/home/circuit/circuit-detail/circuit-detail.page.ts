@@ -3,7 +3,6 @@ import {NavController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {TrackService} from '../../../services/track.service';
 import {ITrackAPI} from '../../../types/TrackAPI';
-import {HttpClient} from '@angular/common/http';
 import {Clipboard} from '@capacitor/clipboard';
 import {Capacitor} from '@capacitor/core';
 import {Haptics} from '@capacitor/haptics';
@@ -20,14 +19,15 @@ export class CircuitDetailPage implements OnInit {
   land: string;
   inputNaam: string;
   inputLand: string;
+  circuitId: string;
 
   constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
-              public trackService: TrackService, private http: HttpClient) {
+              public trackService: TrackService) {
   }
 
   async ngOnInit() {
     isNative: Capacitor.isNativePlatform();
-    this.haalIdsOp();
+    this.circuitId = this.haalIdsOp();
     await this.haalTrackOp();
     await this.laadTrack(); // extra tijd geven om track binnen te halen, ging te snel
     this.naam = this.track.naam;
@@ -38,14 +38,13 @@ export class CircuitDetailPage implements OnInit {
   }
 
   async haalTrackOp(): Promise<void> {
-    await this.trackService.getTrackById(this.haalIdsOp()).subscribe(data => {
+    await this.trackService.getTrackById(this.circuitId).subscribe(data => {
       this.track = data;
     });
   }
 
   haalIdsOp(): string {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    return id;
+    return this.activatedRoute.snapshot.paramMap.get('id');
     // Haal id op van circuit dat gekozen is op Circuit page en return
   }
 
@@ -59,10 +58,14 @@ export class CircuitDetailPage implements OnInit {
     // check of de invoervelden ingevuld zijn
   }
 
-  async clickHandler(): Promise<void> {
-    console.log(this.valideerInput());
+  async circuitAanpassenHandler(): Promise<void> {
     if (this.valideerInput()) {
-      this.updateCircuit();
+      try {
+        await this.trackService.updateCircuit(this.circuitId, this.inputNaam, this.inputLand);
+      } catch (e) {
+        await this.hapticsVibrate();
+        alert('Er is iets mis gegaan bij het aanpassen!');
+      }
     } else {
       await this.hapticsVibrate();
       alert('Vul de invoervelden in!');
@@ -70,13 +73,13 @@ export class CircuitDetailPage implements OnInit {
   }
 
   async verwijderenHandler(): Promise<void> {
-    await this.http.delete<any>(`https://azureapi-production.up.railway.app/tracks/delete/${this.haalIdsOp()}`).subscribe();
-    await this.navController.back();
-  }
-
-  async updateCircuit(): Promise<void> {
-    await this.http.put<any>(`https://azureapi-production.up.railway.app/tracks/update/${this.haalIdsOp()}`,
-        { naam: `${this.inputNaam}`, land: `${this.inputLand}`}).subscribe();
+    try {
+      await this.trackService.verwijderCircuit(this.circuitId);
+      await this.navController.back();
+    } catch (e) {
+      await this.hapticsVibrate();
+      alert('Er is iets mis gegaan bij het verwijderen!');
+    }
   }
 
   async writeToClipboard(): Promise<void> {
@@ -90,7 +93,6 @@ export class CircuitDetailPage implements OnInit {
     if (typeof type === 'string')
       return value;
 
-    console.log(`Got ${type} from clipboard: ${value}`);
     return '';
   }
 

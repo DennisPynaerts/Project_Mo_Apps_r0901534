@@ -3,7 +3,6 @@ import {NavController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {ModellenService} from '../../../../services/modellen.service';
 import {IModelAPI, ModelAPI} from '../../../../types/IModelAPI';
-import {HttpClient} from '@angular/common/http';
 import {IAutoAPI} from '../../../../types/IAutoAPI';
 import {AutoService} from '../../../../services/auto.service';
 import {Haptics} from '@capacitor/haptics';
@@ -36,8 +35,7 @@ export class ModelDetailPage implements OnInit {
   auto: IAutoAPI;
 
   constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
-              public modelService: ModellenService, public autoService: AutoService,
-              public http: HttpClient) { }
+              public modelService: ModellenService, public autoService: AutoService) { }
 
   async ngOnInit() {
     this.haalIdsOpUitRoute();
@@ -221,7 +219,6 @@ export class ModelDetailPage implements OnInit {
     if (typeof type === 'string')
       return value;
 
-    console.log(`Got ${type} from clipboard: ${value}`);
     return '';
   }
 }

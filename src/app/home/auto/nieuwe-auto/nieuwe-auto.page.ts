@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
-import {HttpClient} from '@angular/common/http';
 import {AutoAPI, IAutoAPI} from '../../../types/IAutoAPI';
 import {ModelAPI} from '../../../types/IModelAPI';
 import {AutoService} from '../../../services/auto.service';
@@ -28,8 +27,7 @@ export class NieuweAutoPage implements OnInit {
   alleAutos: IAutoAPI[] = [];
   laatsteAuto: IAutoAPI;
 
-  constructor(public navController: NavController, public http: HttpClient,
-              public autoService: AutoService) {
+  constructor(public navController: NavController, public autoService: AutoService) {
   }
 
   ngOnInit() {
