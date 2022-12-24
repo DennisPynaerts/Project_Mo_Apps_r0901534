@@ -24,6 +24,7 @@ export class AutodetailPage implements OnInit {
   merkNaam: string;
   land: string;
   auto: IAutoAPI;
+  merkId: string;
 
   constructor(public navController: NavController, public activatedRoute: ActivatedRoute,
               public modellenService: ModellenService, public http: HttpClient,
@@ -31,7 +32,7 @@ export class AutodetailPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.haalIdUitRoute();
+    this.merkId = this.haalIdUitRoute();
     await this.haalAutoOp();
     await this.laadAuto();
     await this.haalModellenOp();
@@ -47,11 +48,11 @@ export class AutodetailPage implements OnInit {
   }
 
   async haalModellenOp(): Promise<void> {
-    this.modellen = this.modellenService.getModellen(this.haalIdUitRoute());
+    this.modellen = this.modellenService.getModellen(this.merkId);
   }
 
   async haalAutoOp(): Promise<void> {
-    this.#subscriptions.push(this.autoService.getAutoById(this.haalIdUitRoute()).subscribe(data => {
+    this.#subscriptions.push(this.autoService.getAutoById(this.merkId).subscribe(data => {
       this.auto = data;
     }));
   }
@@ -67,9 +68,13 @@ export class AutodetailPage implements OnInit {
   }
 
   async updateAutoHandler(): Promise<void> {
-    console.log(this.valideerInput());
     if (this.valideerInput()) {
-      await this.updateAuto();
+      try {
+        await this.autoService.updateAutoZonderModellen(this.merkId, this.inputNaam, this.inputLand);
+      } catch (e) {
+        await this.hapticsVibrate();
+        alert('Er is iets mis gegaan bij het verwijderen');
+      }
     } else {
       await this.hapticsVibrate();
       alert('Vul de invoervelden in!');
@@ -82,14 +87,13 @@ export class AutodetailPage implements OnInit {
   }
 
   async autoVerwijderenHandler(): Promise<void> {
-    await this.http.delete<any>(`https://azureapi-production.up.railway.app/autos/delete/${this.haalIdUitRoute()}`).subscribe();
+    try {
+      await this.autoService.verwijderAuto(this.merkId);
+    } catch (e) {
+      await this.hapticsVibrate();
+      alert('Er is iets mis gegaan bij het verwijderen');
+    }
     // Verwijderen werkt, lijst auto's update nog trager dan lijst circuits na delete actie
-  }
-
-  async updateAuto(): Promise<void> {
-    await this.http.put<any>(`https://azureapi-production.up.railway.app/autos/update/${this.haalIdUitRoute()}`,
-        { merkNaam: `${this.inputNaam}`, land: `${this.inputLand}`}).subscribe();
-    // Updaten werkt, lijst auto's update nog trager dan lijst circuits
   }
 
   async hapticsVibrate(): Promise<void> {
@@ -106,8 +110,6 @@ export class AutodetailPage implements OnInit {
     const { type, value } = await Clipboard.read();
     if (typeof type === 'string')
       return value;
-
-    // console.log(`Got ${type} from clipboard: ${value}`);
     return '';
   }
 }

@@ -62,4 +62,14 @@ export class AutoService {
                 modellen: modellen
             }).toPromise()
     }
+
+    async verwijderAuto(merkId: string): Promise<void> {
+        await this.http.delete<any>(`https://azureapi-production.up.railway.app/autos/delete/${merkId}`).subscribe();
+    }
+
+    async updateAutoZonderModellen(merkId: string, merkNaam: string, land: string): Promise<void> {
+        await this.http.put<any>(`https://azureapi-production.up.railway.app/autos/update/${merkId}`,
+            { merkNaam: `${merkNaam}`, land: `${land}`}).subscribe();
+        // Updaten werkt, lijst auto's update nog trager dan lijst circuits
+    }
 }
