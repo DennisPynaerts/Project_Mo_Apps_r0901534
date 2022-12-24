@@ -72,4 +72,15 @@ export class AutoService {
             { merkNaam: `${merkNaam}`, land: `${land}`}).subscribe();
         // Updaten werkt, lijst auto's update nog trager dan lijst circuits
     }
+
+    async pasAutoAan(merkId: string, merkNaam: string, land: string, modellen: ModelAPI[]): Promise<void> {
+        await this.http.put<any>(
+            `https://azureapi-production.up.railway.app/autos/modellen/update/${merkId}`,
+            {
+                merkNaam: merkNaam,
+                land: land,
+                modellen: modellen
+            }
+        ).toPromise()
+    }
 }
