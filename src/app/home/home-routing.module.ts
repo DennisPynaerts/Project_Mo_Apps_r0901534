@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'auto/:id/model-detail/:modelId',
-    loadChildren: () => import('./auto/model/model-detail/model-detail.module').then( m => m.ModelDetailPageModule)
+    loadChildren: () => import('./auto/model-detail/model-detail.module').then( m => m.ModelDetailPageModule)
   },
   {
     path: 'circuit',
