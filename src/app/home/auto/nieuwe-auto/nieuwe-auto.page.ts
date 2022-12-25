@@ -100,12 +100,12 @@ export class NieuweAutoPage implements OnInit {
       handling: this.inputHandling,
       bouwjaar: this.inputBouwjaar,
       prijs: this.inputPrijs,
-      klasse: NieuweAutoPage.stelKlasseIn(Number(this.inputPI)),
+      klasse: this.stelKlasseIn(Number(this.inputPI)),
       PI: this.inputPI
     }
   }
 
-  static stelKlasseIn(pi: Number): string {
+  stelKlasseIn(pi: Number): string {
     if (pi <= 300)
       return 'E';
     if (pi <= 400)

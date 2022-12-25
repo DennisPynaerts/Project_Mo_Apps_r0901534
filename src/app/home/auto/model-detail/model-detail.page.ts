@@ -42,9 +42,7 @@ export class ModelDetailPage implements OnInit {
     this.modelId = this.haalIdsOpUitRoute()[0];
     this.merkId = this.haalIdsOpUitRoute()[1];
     await this.haalModelOp();
-    await this.laadModel();
     await this.haalAlleModellenOp();
-    await this.laadModel();
     await this.haalAutoOp();
     await this.laadModel();
     await this.vulModelGegevensIn();
@@ -61,7 +59,7 @@ export class ModelDetailPage implements OnInit {
   }
 
   laadModel(): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, 1500));
+    return new Promise(resolve => setTimeout(resolve, 1000));
     // API is soms wat traag, laat geen data zien zonder extra laadtijd
   }
 

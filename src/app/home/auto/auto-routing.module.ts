@@ -8,10 +8,6 @@ const routes: Routes = [
     path: '',
     component: AutoPage
   },
-  // {
-  //   path: 'model',
-  //   loadChildren: () => import('./model/model.module').then( m => m.ModelPageModule)
-  // },
   {
     path: 'modeldetail',
     loadChildren: () => import('./model-detail/model-detail.module').then( m => m.ModelDetailPageModule)

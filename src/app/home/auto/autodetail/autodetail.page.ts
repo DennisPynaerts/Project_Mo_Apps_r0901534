@@ -32,7 +32,7 @@ export class AutodetailPage implements OnInit {
   async ngOnInit() {
     this.merkId = this.haalIdUitRoute();
     await this.haalAutoOp();
-    await this.laadAuto();
+    // await this.laadAuto();
     await this.haalModellenOp();
     await this.laadAuto();
     this.merkNaam = this.auto.merkNaam;
