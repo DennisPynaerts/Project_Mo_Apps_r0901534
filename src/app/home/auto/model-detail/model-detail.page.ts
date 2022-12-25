@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
-import {ModellenService} from '../../../../services/modellen.service';
-import {IModelAPI, ModelAPI} from '../../../../types/IModelAPI';
-import {IAutoAPI} from '../../../../types/IAutoAPI';
-import {AutoService} from '../../../../services/auto.service';
+import {ModellenService} from '../../../services/modellen.service';
+import {IModelAPI, ModelAPI} from '../../../types/IModelAPI';
+import {IAutoAPI} from '../../../types/IAutoAPI';
+import {AutoService} from '../../../services/auto.service';
 import {Haptics} from '@capacitor/haptics';
 import {Clipboard} from '@capacitor/clipboard';
 
