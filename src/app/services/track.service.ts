@@ -8,7 +8,7 @@ import {map, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TrackService {
-  readonly #baseURL = 'https://azureapi-production.up.railway.app/tracks';
+  readonly #baseURL = 'https://api-production-4a1f.up.railway.app/tracks';
 
   constructor(private http: HttpClient) { }
 

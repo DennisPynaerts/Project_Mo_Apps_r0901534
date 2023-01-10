@@ -8,7 +8,7 @@ import {ModelAPI} from '../types/IModelAPI';
   providedIn: 'root'
 })
 export class AutoService {
-    readonly #baseURL = 'https://azureapi-production.up.railway.app/autos';
+    readonly #baseURL = 'https://api-production-4a1f.up.railway.app/autos';
 
     constructor(private http: HttpClient) {
     }
